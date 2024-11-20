@@ -3,8 +3,6 @@
 tput reset
 tput civis
 
-# Put your logo here if nessesary
-
 show_orange() {
     echo -e "\e[33m$1\e[0m"
 }
@@ -164,7 +162,8 @@ while true; do
     echo "6. Обновить (Update)"
     echo "7. Логи (Logs)"
     echo "8. Мониторинг (Monitor)"
-    echo "9. Выход (Exit)"
+    echo "9. Удаление (Delete)"
+    echo "10. Выход (Exit)"
     echo
     read -p "Выберите опцию (Select option): " option
 
@@ -292,7 +291,7 @@ EOF
 
             # input logo url to operator.yaml
             FILE="/root/chainbase-avs-setup/holesky/operator.yaml"
-            read -p "Введите RAW URL для logo (Enter new raw logo url): " LOGO_URL
+            read -p "Введите RAW URL metadata (Enter raw url metadata): " LOGO_URL
             sed -i "s|metadata_url: .*|metadata_url: \"$LOGO_URL\"|" "$FILE"
 
                 if grep -q "metadata_url: \"$LOGO_URL\"" "$FILE"; then
@@ -311,7 +310,7 @@ EOF
             process_notification "Меняем (Changing) ENV.... "
             read -p "Введите путь ECDSA (Enter ECDSA path): " ECDSA_PATH
             read -p "Введите пароль ECDSA (Enter ECDSA password): " ECDSA_PASSWORD
-            read -p "Введите путь BLS (Enter BLS path)" BLS_PATH
+            read -p "Введите путь BLS (Enter BLS path) :" BLS_PATH
             read -p "Введите пароль BLS (Enter BLS password): " BLS_PASSWORD
 
             read -p "Введите ETH aдрес (Enter ETH address): " ECDSA_ADDRESS
@@ -339,22 +338,26 @@ EOF
             # START/STOP
             while true; do
                 show_green "------ OPERATIONAL MENU ------ "
-                echo "1. Зaпуск (Start)"
-                echo "2. Остановка (Stop)"
-                echo "3. Выход (Exit)"
+                echo "1. Регистрация (Registration)"
+                echo "2. Зaпуск (Start)"
+                echo "3. Остановка (Stop)"
+                echo "4. Выход (Exit)"
                 echo
                 read -p "Выберите опцию (Select option): " option
                 echo
                 case $option in
                     1)
                         process_notification "Запускаем (Starting)..."
-                        run_commands "cd $HOME/chainbase-avs-setup/holesky && chmod +x ./chainbase-avs.sh && ./chainbase-avs.sh register && ./chainbase-avs.sh run"
+                        run_commands "cd $HOME/chainbase-avs-setup/holesky && chmod +x ./chainbase-avs.sh && ./chainbase-avs.sh register"
                         ;;
                     2)
-                        process_notification "Запускаем (Starting)..."
-                        run_commands "cd $HOME/chainbase-avs-setup/holesky && chmod +x ./chainbase-avs.sh && ./chainbase-avs.sh stop"
+                        run_commands "cd $HOME/chainbase-avs-setup/holesky && chmod +x ./chainbase-avs.sh && ./chainbase-avs.sh run"
                         ;;
                     3)
+                        process_notification "Останавливаем (Stoping)..."
+                        run_commands "cd $HOME/chainbase-avs-setup/holesky && chmod +x ./chainbase-avs.sh && ./chainbase-avs.sh stop"
+                        ;;
+                    4)
                         break
                         ;;
                     *)
@@ -414,6 +417,10 @@ EOF
             show_green "Клик (Click) --- > http://$OPERATOR_ASDRESS:3010"
             ;;
         9)
+            # DELETE
+
+            ;;
+        10)
             exit_script
             ;;
         *)
