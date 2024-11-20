@@ -264,6 +264,7 @@ while true; do
         4)
             # Create config file
             process_notification "Создаем (creating) config file..."
+            export PATH=$PATH:/root/bin
             run_commands "cd $HOME/chainbase-avs-setup/holesky && eigenlayer operator config create"
 
             # Create metadata.json
@@ -418,7 +419,32 @@ EOF
             ;;
         9)
             # DELETE
+            process_notification "Удаление (Deleting)..."
+            echo
+            while true; do
+                read -p "Удалить ноду? Delete node? (yes/no): " option
 
+                case "$option" in
+                    yes|y|Y|Yes|YES)
+                        process_notification "Останавливаем (Stopping) Chainbase..."
+                        run_commands "cd $HOME/chainbase-avs-setup/holesky && ./chainbase-avs.sh stop"
+
+                        process_notification "Чистим (Cleaning)..."
+                        run_commands "rm -rvf $HOME/.eigenlayer && rm -rvf $HOME/chainbase-avs-setup "
+
+                        show_green "--- НОДА УДАЛЕНА. NODE DELETED. ---"
+                        break
+                        ;;
+                    no|n|N|No|NO)
+                        process_notification "Отмена (Cancel)"
+                        echo ""
+                        break
+                        ;;
+                    *)
+                        incorrect_option
+                        ;;
+                esac
+            done
             ;;
         10)
             exit_script
