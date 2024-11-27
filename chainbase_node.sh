@@ -430,7 +430,7 @@ EOF
                         run_commands "cd $HOME/chainbase-avs-setup/holesky && ./chainbase-avs.sh stop"
 
                         process_notification "Чистим (Cleaning)..."
-                        run_commands "rm -rvf $HOME/.eigenlayer && rm -rvf $HOME/chainbase-avs-setup "
+                        run_commands "rm -rvf $HOME/.eigenlayer && rm -rvf $HOME/chainbase-avs-setup && rm -rvf $HOME/bin "
 
                         show_green "--- НОДА УДАЛЕНА. NODE DELETED. ---"
                         break
