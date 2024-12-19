@@ -158,7 +158,7 @@ while true; do
     echo "2. Установка (Installation)"
     echo "3. Создать/импортировать (Create/Import) Wallet and BLS"
     echo "4. Настроить (Tunning)"
-    echo "5. Запуск/Остановка (Start/Stop)"
+    echo "5. Запуск/Остановка/Тест (Start/Stop/Test)"
     echo "6. Обновить (Update)"
     echo "7. Логи (Logs)"
     echo "8. Мониторинг (Monitor)"
