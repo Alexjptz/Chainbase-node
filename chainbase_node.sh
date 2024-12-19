@@ -336,13 +336,14 @@ EOF
             echo
             ;;
         5)
-            # START/STOP
+            # START/STOP/TEST
             while true; do
                 show_green "------ OPERATIONAL MENU ------ "
                 echo "1. Регистрация (Registration)"
                 echo "2. Зaпуск (Start)"
                 echo "3. Остановка (Stop)"
-                echo "4. Выход (Exit)"
+                echo "4. Tect (Test)"
+                echo "5. Выход (Exit)"
                 echo
                 read -p "Выберите опцию (Select option): " option
                 echo
@@ -352,6 +353,7 @@ EOF
                         run_commands "cd $HOME/chainbase-avs-setup/holesky && chmod +x ./chainbase-avs.sh && ./chainbase-avs.sh register"
                         ;;
                     2)
+                        process_notification "Запускаем (Starting)..."
                         run_commands "cd $HOME/chainbase-avs-setup/holesky && chmod +x ./chainbase-avs.sh && ./chainbase-avs.sh run"
                         ;;
                     3)
@@ -359,6 +361,10 @@ EOF
                         run_commands "cd $HOME/chainbase-avs-setup/holesky && chmod +x ./chainbase-avs.sh && ./chainbase-avs.sh stop"
                         ;;
                     4)
+                        process_notification "Запускаем Test (Starting Test)..."
+                        run_commands "cd $HOME/chainbase-avs-setup/holesky && chmod +x ./chainbase-avs.sh && ./chainbase-avs.sh test"
+                        ;;
+                    5)
                         break
                         ;;
                     *)
